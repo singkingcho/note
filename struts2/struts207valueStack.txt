@@ -1,0 +1,113 @@
+值栈是struts当中非常重要的一个内容，我们重点研究
+1 接口定义
+	com.opensymphony.xwork2.util.ValueStack
+	重要方法：
+	  public abstract Map<String, Object> getContext();
+	  public abstract void setValue(String expr, Object value);
+	  void setParameter(String expr, Object value);
+	  public abstract void set(String key, Object o);
+2 什么是值栈
+
+ ValueStack allows multiple beans to be pushed in and dynamic EL expressions to be evaluated against
+ it. When evaluating an expression, the stack will be searched down the stack,
+ from the latest objects pushed in to theearliest, looking for a bean with a getter
+ or setter for the given property or a method of the given name (depending
+ on the expression being evaluated).
+ 
+ 简而言之这是struts存储内容以及搜寻内容的一个容器，它具有栈的特点
+	如何获取与使用,获取它之前，我们先要获取ActionContext
+	，看名字就知道，action的上下文
+	
+	ActionContext context = ActionContext.getContext();
+3 值栈存取实战
+	ActionContext context = ActionContext.getContext();
+	ValueStack valueStack = context.getValueStack();
+	valueStack.set("girl", "王菲");
+		
+	前台：
+		${girl}
+		
+	值栈是一组几个对象，它们以提供的顺序保存下列对象
+	1	
+	临时对象
+	在执行页面时会创建各种临时对象。例如，集合的当前迭代值在JSP标记中循环。
+
+	2	
+	模型对象
+	如果在struts应用程序中使用模型对象，则将当前模型对象放置在值栈上的操作之前。
+
+	3	
+	行动对象
+	这将是当前正在执行的操作对象,也就是action
+
+	4	
+	命名对象
+	这些对象包括#application，#session，#request，#attr和#parameters，并引用相应的servlet作用域。
+
+4 要想熟练掌握获取值栈当中数据，我们必须掌握OGNL的使用，对象的图形导航语言
+
+	基本套路就是
+	对象.property
+	如果是集合还可以加入序号，当然得有序号
+	collection[index]
+
+5 setValue存储与取的问题
+	valueStack.set("girl", "王菲");
+	<s:property value="girl"/><br>
+6 push一个map与取
+	ActionContext context = ActionContext.getContext();
+	ValueStack valueStack = context.getValueStack();
+	Map<String, Object> map = new HashMap<>();
+	User u  = new User();
+	User u2  = new User();
+	u.setUsername("菲菲");
+	u2.setUsername("韩雪");
+	map.put("k1",u );
+	map.put("k2", u2);
+	valueStack.push(map);
+	
+	
+	<s:property value="k1.username"/><br>     
+	<s:property value="k2.username"/><br>     
+
+	
+7 如果存入的是一个集合
+	ActionContext context = ActionContext.getContext();
+	ValueStack valueStack = context.getValueStack();
+	List<String> users = new ArrayList<>();
+	users.add("王菲");
+	users.add("青霞");
+	users.add("韩雪");
+	valueStack.set("girls", users);
+	
+	
+	<s:iterator value="girls" var="g">
+		<s:property value="g"/>
+	</s:iterator>
+
+8 为了更好研究值栈我们使用一下 s debug标签
+	<s:debug>
+9 对于直接将一个对象存入这种情况比较特殊	
+	使用top语法
+	<s:property value="top"/>
+10 如果存入了两个，push两次之后
+	[0].top
+	不写就是从栈顶依次放下寻找。
+	再使用top得到的将会是后面push的，所以问题来了，我还想取前面的怎么办？
+	[1].top
+	通过标号与top语法，我们可以去得到任意的值栈当中的内容
+	对于OGNL的表达式用法，我们参考如下网址：
+	https://commons.apache.org/proper/commons-ognl/language-guide.html
+	
+
+
+
+
+
+
+
+
+
+
+
+
