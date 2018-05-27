@@ -1,0 +1,12 @@
+动态方法调用也称之为DMI
+dynamic method invocation
+先体验后说明
+
+1  激活动态方法调用
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	
+2 调用方式
+	http://localhost:8080/struts2-1/boy/hello!m1
+	通过! 然后指定方法即可
+	
+3 这种方式了解即可，不推荐使用

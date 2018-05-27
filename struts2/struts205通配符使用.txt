@@ -1,0 +1,52 @@
+为了简化开发的编写工作，struts 提供了通配符的使用方式，需要注意，一旦使用
+那么整个开发团队就要去约定好开发的模式，命名的时候大家一定要遵守对应的规则。
+
+通配符使用
+	<action name="*" class="com.bdqn.action.BoyAction" method="{1}">
+		<result>/{1}.jsp</result>
+	</action>
+	
+	{1}可以代表*，
+	所以如果键入m1
+	那么就是执行m1方法
+	返回m1.jsp页面
+	
+【注意】
+	strut2点高版本当中提高了安全要求，如果直接使用上述配置将会404，无法处理请求
+	，原因是package当中使用了严格模式调用
+	【解决一：】
+	strict-method-invocation默认值为true
+	我们需要将其修改为false
+	【解决二：】
+	添加允许的方法：	
+	笨办法就是一个一个列出来
+	<global-allowed-methods>m1,m2,m3</global-allowed-methods>	
+	我们这么聪明，当然不会这么干
+	使用正则,注意这个.不能少
+	<global-allowed-methods>regex:.*</global-allowed-methods>
+	
+使用不止一个的*
+	<action name="*/*" class="com.bdqn.action.BoyAction" method="{1}">
+		<result>/{2}.jsp</result>
+	</action>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
