@@ -1,0 +1,71 @@
+﻿1  package配置
+	name :
+		给包取个名字，如果其它包需要继承它的话需要使用
+	namespace :
+		如果不写默认就是 /
+		如果写了的话，那么请求URI就是namespace加上后面的
+		action当中的name
+	extends:
+		struts-default
+		继承它是为了使用sturts默认为我们提供的方便的功能
+		
+2 action配置
+	<action name="/m1" class="com.bdqn.action.BoyAction">
+			<result >/suc.jsp</result>
+	</action>
+	name: 
+			其实也是URI当中的一部分，它和package当中的namespace组合为一个完整的
+			URI
+			这里不要以斜杠开头，struts会帮我们去组合拼接的
+	class: 
+			指定某个类来处理这个请求，如果不指定method，那么默认使用execute方法，
+			所以我们写方法的时候，方法名为execute.
+			当然可以我们自己自由的指定
+	method:	
+			指定某个方法处理
+	result节点：
+		name：
+			缺省就是success
+		type
+			缺省为转发
+		跳转页面
+			统一以/开头，此时是在webapp的根路径下，所以直接一路往下写即可。
+	
+	
+3 为了支持斜杠，配置一个常量
+	 <constant name="struts.enable.SlashesInActionNames" value="true"/>
+	 
+	 
+	 
+4 实现action接口开发方式
+
+5 继承actionSupport开发方式
+	提供了很多的便利功能，所以我们基本上就采用它。
+	
+6 深入谈谈result当中type值问题
+	我们先研究最简单的四个，其余的都是有额外特殊功能的。
+	dispatcher 转发到页面，也是默认值
+	redirectAction	重定向到一个action	
+					struts默认到请求风格是后面加上.action
+					所以当我们当请求重定向到另外一个ation
+					到时候，将会出现.action到后缀。
+	redirect	重定向到页面
+	chain		转发一个请求到另外一个action
+	
+ 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 

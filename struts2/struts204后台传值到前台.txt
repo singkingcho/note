@@ -1,0 +1,29 @@
+后台传递消息到前台
+1 后台属性提供get set
+	private String greeting;
+
+	public String getGreeting() {
+		return greeting;
+	}
+
+	public void setGreeting(String greeting) {
+		this.greeting = greeting;
+	}
+	
+	
+2 前台页面展示
+	2.1 
+		直接通过${}表示
+		注意虽然像EL表达式，但是它不是el而是属于OGNL表达式
+		${greeting}
+		通过
+			String msg = request.getAttribute("greeting").toString();
+			out.write(msg);
+			我们一样可以获得内容，所以struts它通过一些手段将我们的信息封装到了指定的域
+		当我们通过session去获取，得不到，证明它默认策略是存储在请求域当中，
+		其实这都是struts2当中的值栈设计而导致的结果
+		ValueStack
+		这个是很重要的话题，我们先知道一下，后面我们会详细探讨。
+	2.2
+		通过标签也可以获取
+		<s:property value="greeting"/>

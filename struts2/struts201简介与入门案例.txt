@@ -1,0 +1,46 @@
+struts2第一话
+1 struts2是什么
+	struts2是apache基金会开发的一个开源的mvc框架，所以很明显
+	，它主要就是用来作为jsp/servlet的替代。
+	其实并不是这个技术不用了，而是希望我们开发人员不需要去
+	操作这么底层的API。
+	
+
+2 struts2组成
+	Apache Struts 2是一个全新的，先进的Web应用程序框架，
+	Struts 2不仅仅是Struts 1框架的新版本。
+	这是一个全新的框架，基于OpenSymphony WebWork框架。
+	Struts2有些东西需要学习，特别是拦截器和OGNL。
+
+3 strust2入门案例
+	3.1 引入依赖
+	3.2 在web.xml当中注册核心过滤器
+	3.3 编写一个jsp页面用于提交请求
+	3.4	编写一个Action充当控制器
+	3.5 编写struts.xml(struts的核心文件)
+		1 配置一个包
+		2 配置一个action
+			2.1配置 name class 
+			2.2配置resutl
+					name 
+						页面
+
+
+4	启动测试效果
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

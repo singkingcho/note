@@ -1,0 +1,64 @@
+struts请求提交内容问题探讨
+	属性驱动
+	模型驱动
+
+1 属性驱动
+	1.1简单属性驱动
+	首先网页提交的form表单要符合属性名称
+	比如
+		name="username"
+	
+	action当中提供属性并且提供get set即可。
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	如果有多个则继续加，但是这样很快就会有很多的属性与get/set，以user为例，能否只写一个呢
+	
+	1.2复杂属性驱动
+	多属性继续属性属性驱动
+	通过前端编写
+	
+	name="field.propertyName"
+	即可
+	比如
+	name="user.username"
+	name="user.password"
+	测试中国提交也没有问题
+
+2	模型驱动
+	2.1 实现modeldriven
+	2.2 加入一个field
+			private User user = new User();
+			必须实例化
+	2.3 提供getModel()实现
+		返回user即可。
+		
+3 请求URL再度探析
+	http://localhost:8080/struts/boy/login
+	协议：http://
+	host：localhost
+	port: 8080
+	servletContext:/struts
+	package namespace:/boy
+	actionName : /login
+	
+4 标签库的使用
+	标签很多，我们先使用它最简单的几个标签。
+	<%@ taglib uri="/struts-tags" prefix="s"%>
+
+	<s:form action="login" namespace="/boy" method="post">
+		<s:textfield name="username" label="用户名"/>
+		<s:password name="password" label="密码"/>
+		<s:submit/>
+	</s:form>
+
+	
+	
+
